@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchpadApi", "LaunchpadApi\LaunchpadApi.csproj", "{E70ABC2A-5B8E-4115-AC8F-DDFF4765DFC7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launchpad.Api", "LaunchpadApi\Launchpad.Api.csproj", "{E70ABC2A-5B8E-4115-AC8F-DDFF4765DFC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launchpad.Core", "Launchpad.Core\Launchpad.Core.csproj", "{98684200-10D6-4966-9731-07D5B0140218}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launchpad.UnitTests", "Launchpad.UnitTests\Launchpad.UnitTests.csproj", "{951B5231-C870-49AD-90FF-17511E8AD7DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{E70ABC2A-5B8E-4115-AC8F-DDFF4765DFC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E70ABC2A-5B8E-4115-AC8F-DDFF4765DFC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E70ABC2A-5B8E-4115-AC8F-DDFF4765DFC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98684200-10D6-4966-9731-07D5B0140218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98684200-10D6-4966-9731-07D5B0140218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98684200-10D6-4966-9731-07D5B0140218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98684200-10D6-4966-9731-07D5B0140218}.Release|Any CPU.Build.0 = Release|Any CPU
+		{951B5231-C870-49AD-90FF-17511E8AD7DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{951B5231-C870-49AD-90FF-17511E8AD7DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{951B5231-C870-49AD-90FF-17511E8AD7DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{951B5231-C870-49AD-90FF-17511E8AD7DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
