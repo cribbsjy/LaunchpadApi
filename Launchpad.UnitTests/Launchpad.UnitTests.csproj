@@ -12,15 +12,12 @@
     <PackageReference Include="Moq" Version="4.8.3" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.2.1" />
     <PackageReference Include="MSTest.TestFramework" Version="1.2.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Launchpad.Core\Launchpad.Core.csproj" />
     <ProjectReference Include="..\LaunchpadApi\Launchpad.Api.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ServicesTests\" />
   </ItemGroup>
 
 </Project>

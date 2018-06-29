@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Launchpad.Core.Factories;
+using Launchpad.Core.Managers;
+using Launchpad.Core.Managers.Interfaces;
+using Launchpad.Core.Services;
+using Launchpad.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace LaunchpadApi
@@ -30,6 +29,13 @@ namespace LaunchpadApi
             {
                 c.SwaggerDoc("v1", new Info { Title = "Launchpad API", Version = "v1" });
             });
+
+            services.AddSingleton(Configuration);
+
+            // Launchpad.Core services
+            services.AddTransient<ILaunchpadManager, LaunchpadManager>();
+            services.AddTransient<ILaunchpadService, LaunchpadService>();
+            services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
