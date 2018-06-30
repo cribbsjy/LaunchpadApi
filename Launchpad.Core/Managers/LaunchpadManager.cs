@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Launchpad.Core.DTOs;
 using Launchpad.Core.Managers.Interfaces;
 using Launchpad.Core.Services.Interfaces;
@@ -22,7 +23,7 @@ namespace Launchpad.Core.Managers
         public async Task<ICollection<LaunchpadDto>> GetAllLaunchpads(SearchLaunchpadDto dto)
         {
             // Get launchpad data from data store
-            var launchpadsList = await _launchpadService.GetAllLaunchpads();
+            var launchpadsList = (await _launchpadService.GetAllLaunchpads()).AsQueryable();
             if (!string.IsNullOrWhiteSpace(dto.Name))
             {
                 // Name is a "like" comparison
@@ -35,7 +36,7 @@ namespace Launchpad.Core.Managers
                 launchpadsList = launchpadsList.Where(q => q.Status == dto.Status);
             }
 
-            return _mapper.Map<List<LaunchpadDto>>(launchpadsList.ToList());
+            return launchpadsList.ProjectTo<LaunchpadDto>().ToList();
         }
 
         public async Task<LaunchpadDto> GetLaunchpadById(string id)
