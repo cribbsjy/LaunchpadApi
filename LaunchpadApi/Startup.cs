@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace LaunchpadApi
@@ -26,11 +27,13 @@ namespace LaunchpadApi
         {
             services.AddMvc();
 
+            // Swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Launchpad API", Version = "v1" });
             });
 
+            // Configuration
             services.AddSingleton(Configuration);
 
             // Launchpad.Core services
@@ -38,11 +41,14 @@ namespace LaunchpadApi
             services.AddTransient<ILaunchpadService, LaunchpadService>();
             services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
 
+            // Automapper
             services.AddAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, 
+            IHostingEnvironment env,
+            ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -56,6 +62,9 @@ namespace LaunchpadApi
             });
 
             app.UseMvc();
+
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
         }
     }
 }

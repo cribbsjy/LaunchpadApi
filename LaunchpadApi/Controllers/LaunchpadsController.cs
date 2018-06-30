@@ -8,19 +8,22 @@ using Launchpad.Core.DTOs;
 using Launchpad.Core.Managers.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Launchpad.Api.Controllers
 {
     [Route("api/v1/[controller]")]
-    public class LaunchpadsController : Controller
+    public class LaunchpadsController : BaseController
     {
         private readonly ILaunchpadManager _manager;
-        private readonly IMapper _mapper;
 
-        public LaunchpadsController(IMapper mapper, ILaunchpadManager launchpadManager)
+        public LaunchpadsController(ILoggerFactory loggerFactory, 
+            IMapper mapper, 
+            ILaunchpadManager launchpadManager)
+            : base(loggerFactory, 
+                  mapper)
         {
-            _mapper = mapper;
             _manager = launchpadManager;
         }
 
@@ -32,8 +35,10 @@ namespace Launchpad.Api.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, typeof(Dictionary<string, string>))]
         public async Task<IActionResult> Get(LaunchpadSearchRequest request)
         {
+            _logger.LogInformation($"{nameof(LaunchpadsController)}.{nameof(Get)}", request);
             if (!ModelState.IsValid)
             {
+                _logger.LogWarning($"{nameof(LaunchpadsController)}.{nameof(Get)} modelstate invalid", ModelState);
                 return BadRequest(ModelState);
             }
 
@@ -52,14 +57,17 @@ namespace Launchpad.Api.Controllers
         [SwaggerResponse(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(string id)
         {
+            _logger.LogInformation($"{nameof(LaunchpadsController)}.{nameof(Get)}({id})", id);
             if (!ModelState.IsValid)
             {
+                _logger.LogWarning($"{nameof(LaunchpadsController)}.{nameof(Get)}({id}) modelstate invalid", ModelState);
                 return BadRequest(ModelState);
             }
 
             var result = await _manager.GetLaunchpadById(id);
             if (result == null)
             {
+                _logger.LogWarning($"{nameof(LaunchpadsController)}.{nameof(Get)}({id}) not found", id);
                 return NotFound();
             }
 
