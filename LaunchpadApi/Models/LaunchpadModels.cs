@@ -2,14 +2,14 @@
 {
     public class LaunchpadModel
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string Status { get; set; }
+        public string LaunchpadId { get; set; }
+        public string LaunchpadName { get; set; }
+        public string LaunchpadStatus { get; set; }
     }
 
     public class LaunchpadSearchRequest : PagingOptions
     {
-        public string Name { get; set; }
-        public string Status { get; set; }
+        public string LaunchpadName { get; set; }
+        public string LaunchpadStatus { get; set; }
     }
 }

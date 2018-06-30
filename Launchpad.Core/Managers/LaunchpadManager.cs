@@ -26,7 +26,7 @@ namespace Launchpad.Core.Managers
             if (!string.IsNullOrWhiteSpace(dto.Name))
             {
                 // Name is a "like" comparison
-                launchpadsList = launchpadsList.Where(q => q.Name.Contains(dto.Name));
+                launchpadsList = launchpadsList.Where(q => q.Full_Name.Contains(dto.Name));
             }
 
             if (!string.IsNullOrWhiteSpace(dto.Status))
