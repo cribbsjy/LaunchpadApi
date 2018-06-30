@@ -6,7 +6,7 @@ namespace Launchpad.Core.Services.Interfaces
 {
     public interface ILaunchpadService
     {
-        Task<ICollection<LaunchpadDto>> GetAllLaunchpads();
-        Task<ICollection<LaunchpadDto>> GetLaunchpadById(string id);
+        Task<IEnumerable<SpaceXLaunchpadDto>> GetAllLaunchpads();
+        Task<SpaceXLaunchpadDto> GetLaunchpadById(string id);
     }
 }

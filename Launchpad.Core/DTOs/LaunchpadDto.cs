@@ -9,6 +9,12 @@ namespace Launchpad.Core.DTOs
         public string Status { get; set; }
     }
 
+    public class SearchLaunchpadDto
+    {
+        public string Name { get; set; }
+        public string Status { get; set; }
+    }
+
     public class SpaceXLaunchpadDto
     {
         public string Id { get; set; }

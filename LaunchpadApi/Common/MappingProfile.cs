@@ -11,6 +11,7 @@ namespace Launchpad.Api.Common
             CreateMap<SpaceXLaunchpadDto, LaunchpadDto>()
                 .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Full_Name));
             CreateMap<LaunchpadDto, LaunchpadModel>();
+            CreateMap<LaunchpadSearchRequest, SearchLaunchpadDto>();
         }
     }
 }

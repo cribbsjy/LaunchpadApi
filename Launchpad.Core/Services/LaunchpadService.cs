@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Launchpad.Core.DTOs;
 using Launchpad.Core.Factories;
 using Launchpad.Core.Services.Interfaces;
+using Microsoft.Extensions.Configuration;
 
 namespace Launchpad.Core.Services
 {
@@ -11,19 +12,21 @@ namespace Launchpad.Core.Services
     {
         private readonly HttpClient _httpClient;
 
-        public LaunchpadService(IHttpClientFactory httpClientFactory)
+        public LaunchpadService(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
-            _httpClient = httpClientFactory.Create("blah"); // TODO: Get the URI from the Configuration
+            _httpClient = httpClientFactory.Create(configuration.GetConnectionString("SpaceX-API"));
         }
 
-        public Task<ICollection<LaunchpadDto>> GetAllLaunchpads()
+        public async Task<IEnumerable<SpaceXLaunchpadDto>> GetAllLaunchpads()
         {
-            throw new System.NotImplementedException();
+            var httpResponse = await _httpClient.GetAsync("launchpads");
+            return await httpResponse.ConvertResponseToObject<List<SpaceXLaunchpadDto>>();
         }
 
-        public Task<ICollection<LaunchpadDto>> GetLaunchpadById(string id)
+        public async Task<SpaceXLaunchpadDto> GetLaunchpadById(string id)
         {
-            throw new System.NotImplementedException();
+            var httpResponse = await _httpClient.GetAsync($"launchpads/{id}");
+            return await httpResponse.ConvertResponseToObject<SpaceXLaunchpadDto>();
         }
     }
 }

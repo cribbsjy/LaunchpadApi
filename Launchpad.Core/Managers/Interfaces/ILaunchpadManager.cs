@@ -6,7 +6,7 @@ namespace Launchpad.Core.Managers.Interfaces
 {
     public interface ILaunchpadManager
     {
-        Task<ICollection<LaunchpadDto>> GetAllLaunchpads();
-        Task<ICollection<LaunchpadDto>> GetLaunchpadById(string id);
+        Task<ICollection<LaunchpadDto>> GetAllLaunchpads(SearchLaunchpadDto dto);
+        Task<LaunchpadDto> GetLaunchpadById(string id);
     }
 }

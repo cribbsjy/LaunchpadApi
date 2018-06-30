@@ -1,4 +1,5 @@
-﻿using Launchpad.Core.Factories;
+﻿using AutoMapper;
+using Launchpad.Core.Factories;
 using Launchpad.Core.Managers;
 using Launchpad.Core.Managers.Interfaces;
 using Launchpad.Core.Services;
@@ -36,6 +37,8 @@ namespace LaunchpadApi
             services.AddTransient<ILaunchpadManager, LaunchpadManager>();
             services.AddTransient<ILaunchpadService, LaunchpadService>();
             services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
+
+            services.AddAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

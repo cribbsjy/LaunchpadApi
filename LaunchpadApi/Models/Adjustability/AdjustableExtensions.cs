@@ -66,7 +66,9 @@ namespace Launchpad.Api.Models.Adjustability
                 return ToExpando(obj);
             }
 
-            var columns = fields.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            var columns = fields.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(p => p.Trim())
+                .ToList();
             if (columns.All(string.IsNullOrWhiteSpace))
             {
                 return ToExpando(obj);
@@ -100,7 +102,10 @@ namespace Launchpad.Api.Models.Adjustability
                 return source;
             }
 
-            var columns = adj.Sort.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            var columns = adj.Sort
+                .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(p => p.Trim())
+                .ToList();
 
             bool thenBy = false;
             foreach (var column in columns)

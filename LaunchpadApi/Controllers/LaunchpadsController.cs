@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Launchpad.Api.Models;
 using Launchpad.Api.Models.Adjustability;
+using Launchpad.Core.DTOs;
 using Launchpad.Core.Managers.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,9 +16,11 @@ namespace Launchpad.Api.Controllers
     public class LaunchpadsController : Controller
     {
         private readonly ILaunchpadManager _manager;
+        private readonly IMapper _mapper;
 
-        public LaunchpadsController(ILaunchpadManager launchpadManager)
+        public LaunchpadsController(IMapper mapper, ILaunchpadManager launchpadManager)
         {
+            _mapper = mapper;
             _manager = launchpadManager;
         }
 
@@ -33,19 +37,33 @@ namespace Launchpad.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var result = await _manager.GetAllLaunchpads();
+            var result = await _manager.GetAllLaunchpads(_mapper.Map<SearchLaunchpadDto>(request));
 
             return Ok(result.SortBy(request)
                 .Paginate(request)
                 .FieldSelect(request));
         }
 
+        /// <summary>
+        /// Get a specific launchpad by ID
+        /// </summary>
         [HttpGet("{id}")]
         [SwaggerResponse(StatusCodes.Status200OK, typeof(LaunchpadModel))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, typeof(string))]
+        [SwaggerResponse(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(string id)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await _manager.GetLaunchpadById(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<LaunchpadModel>(result));
         }
     }
 }
